@@ -39,3 +39,15 @@ body {
     font-size: 20px;
     font-family: Arial, sans-serif;
 }
+
+.valid {
+    border: 5px solid;
+    box-sizing: border-box;
+    border-color: #f5f2e7 #c4c0b2 #c4c0b2 #fbf6d9;
+}
+
+.bomb {
+    border: 5px solid;
+    box-sizing: border-box;
+    border-color: #f5f2e7 #c4c0b2 #c4c0b2 #fbf6d9;
+}
