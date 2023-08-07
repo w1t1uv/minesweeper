@@ -1,0 +1,41 @@
+body {
+    background-color: #fff;
+}
+
+.body-dark-mode {
+    background-color: #131313;
+}
+
+.title {
+    font-family: Arial, sans-serif;
+    font-size: 34px;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.title-dark-mode {
+    color: #fff;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.grid {
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #35a661;
+    border: 7px solid #f0ead6;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.grid div {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+}
