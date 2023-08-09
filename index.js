@@ -11,8 +11,11 @@ const grid = document.createElement('div');
 grid.classList.add('grid');
 wrapper.append(grid);
 
+const body = document.querySelector('body');
+
 let width = 10;
 let bombCount = 10;
+let flags = 0;
 let squares = [];
 let isGameOver = false;
 
@@ -75,6 +78,24 @@ function createBoard() {
 }
 
 createBoard();
+
+function addFlag(square) {
+	if (isGameOver) {
+		return;
+	}
+	if (!square.classList.contains('checked') && (flags < bombCount)) {
+		if (!square.classList.contains('flag')) {
+			square.classList.add('flag');
+			square.innerHTML = ' 🚩';
+			flags++;
+			winCheck();
+		} else {
+			square.classList.remove('flag');
+			square.innerHTML = '';
+			flags--;
+		}
+	}
+}
 
 function click(square) {
 	let currentId = square.id;
@@ -157,4 +178,21 @@ function checkSquare(square, currentId) {
 			click(newSquare);
 		}
 	}, 10)
+}
+
+const gameEnd = document.createElement('p');
+gameEnd.classList.add('game-end');
+gameEnd.innerHTML = 'Game over. Try again.';
+document.body.append(gameEnd);
+
+function gameOver(square) {
+	gameEnd.style.opacity = '1';
+
+	isGameOver = true;
+
+	squares.forEach(square => {
+		if (square.classList.contains('bomb')) {
+			square.innerHTML = '💣';
+		}
+	})
 }
