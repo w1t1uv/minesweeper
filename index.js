@@ -11,6 +11,15 @@ const grid = document.createElement('div');
 grid.classList.add('grid');
 wrapper.append(grid);
 
+const newGameButton = document.createElement('div');
+newGameButton.classList.add('new-game-button');
+document.body.append(newGameButton);
+
+const newGameTitle = document.createElement('p');
+newGameTitle.classList.add('new-game-title');
+newGameTitle.innerHTML = 'New game';
+newGameButton.appendChild(newGameTitle);
+
 const body = document.querySelector('body');
 
 let width = 10;
