@@ -72,3 +72,16 @@ body {
 .four {
     background-color: #cb7dda;
 }
+
+.game-end {
+    font-family: Arial, sans-serif;
+    font-size: 23px;
+    text-align: center;
+    padding: 4px 0;
+    color: #000;
+    opacity: 0;
+}
+
+.game-end-dark-mode {
+    color: #fff;
+}
