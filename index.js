@@ -28,6 +28,19 @@ let flags = 0;
 let squares = [];
 let isGameOver = false;
 
+const trackingWrapper = document.createElement('div');
+trackingWrapper.classList.add('tracking-wrapper');
+document.body.append(trackingWrapper);
+
+const timerWrapper = document.createElement('div');
+timerWrapper.classList.add('timer-wrapper');
+trackingWrapper.append(timerWrapper);
+
+const timer = document.createElement('p');
+timer.classList.add('timer');
+timer.innerHTML = '0';
+timerWrapper.append(timer);
+
 function createBoard() {
 	const bombArray = Array(bombCount).fill('bomb');
 	const validArray = Array(width * width - bombCount).fill('valid');
