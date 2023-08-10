@@ -25,6 +25,8 @@ const body = document.querySelector('body');
 let width = 10;
 let bombCount = 10;
 let flags = 0;
+let count = 0;
+let sec = 0;
 let squares = [];
 let isGameOver = false;
 
@@ -40,6 +42,18 @@ const timer = document.createElement('p');
 timer.classList.add('timer');
 timer.innerHTML = '0';
 timerWrapper.append(timer);
+
+const moveCountWrapper = document.createElement('div');
+moveCountWrapper.classList.add('move-count-wrapper');
+trackingWrapper.append(moveCountWrapper);
+
+const moveCount = document.createElement('p');
+moveCount.classList.add('move-count');
+moveCount.innerHTML = '0';
+moveCountWrapper.append(moveCount);
+
+grid.addEventListener('click', startTimer, {once: true});
+grid.addEventListener('click', finishTimer);
 
 function createBoard() {
 	const bombArray = Array(bombCount).fill('bomb');
