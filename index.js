@@ -28,6 +28,8 @@ let flags = 0;
 let count = 0;
 let sec = 0;
 let squares = [];
+let timerID;
+let finalTime;
 let isGameOver = false;
 
 const trackingWrapper = document.createElement('div');
@@ -54,6 +56,24 @@ moveCountWrapper.append(moveCount);
 
 grid.addEventListener('click', startTimer, {once: true});
 grid.addEventListener('click', finishTimer);
+
+function startTimer() {
+	if (!isGameOver) {
+		timerID = setInterval(function () {
+			sec++;
+			timer.innerHTML = sec;
+		}, 1000)
+	}
+}
+
+function finishTimer(event) {
+	let target = event.target;
+
+	if (target.classList.contains('bomb')) {
+		clearInterval(timerID);
+		finalTime = timer.textContent;
+	}
+}
 
 function createBoard() {
 	const bombArray = Array(bombCount).fill('bomb');
