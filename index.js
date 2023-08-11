@@ -31,6 +31,7 @@ let squares = [];
 let timerID;
 let finalTime;
 let isGameOver = false;
+let totalMoves;
 
 const trackingWrapper = document.createElement('div');
 trackingWrapper.classList.add('tracking-wrapper');
@@ -72,6 +73,21 @@ function finishTimer(event) {
 	if (target.classList.contains('bomb')) {
 		clearInterval(timerID);
 		finalTime = timer.textContent;
+	}
+}
+
+grid.addEventListener('click', moveCounter, true);
+
+function moveCounter(event) {
+	let target = event.target;
+
+	if (target.classList.contains('valid') && !target.classList.contains('checked')) {
+		count++;
+		moveCount.innerHTML = `${count}`;
+	}
+	if (isGameOver) {
+		grid.removeEventListener('click', moveCounter);
+		totalMoves = count;
 	}
 }
 
