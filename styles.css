@@ -96,6 +96,31 @@ body {
     padding: 14px 0;
 }
 
+.settings-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.mode-switcher {
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    text-align: center;
+    width: 100px;
+    height: 50px;
+    background-color: #67527c;
+    color: #fff;
+    box-sizing: border-box;
+    border-radius: 15px;
+    padding: 16px 0;
+}
+
+.mode-switcher-dark-mode {
+    cursor: pointer;
+    background-color: #e1d6eb;
+    color: #000;
+}
+
 .valid {
     border: 5px solid;
     box-sizing: border-box;

@@ -55,8 +55,18 @@ moveCount.classList.add('move-count');
 moveCount.innerHTML = '0';
 moveCountWrapper.append(moveCount);
 
+const settingsWrapper = document.createElement('div');
+settingsWrapper.classList.add('settings-wrapper');
+document.body.append(settingsWrapper);
+
+const modeSwitcher = document.createElement('div');
+modeSwitcher.classList.add('mode-switcher');
+modeSwitcher.innerHTML = 'dark mode';
+settingsWrapper.append(modeSwitcher);
+
 grid.addEventListener('click', startTimer, {once: true});
 grid.addEventListener('click', finishTimer);
+modeSwitcher.addEventListener('click', changeMode);
 
 function startTimer() {
 	if (!isGameOver) {
@@ -284,4 +294,44 @@ function winCheck() {
 		isGameOver = true;
 		isWin = true;
 	}
+}
+
+initMode();
+
+function initMode() {
+	let mode = localStorage.getItem('mode');
+
+	if (mode === null || mode === 'light') {
+		setLightMode();
+	} else if (mode === 'dark') {
+		setDarkMode();
+	}
+}
+
+function changeMode() {
+	let mode = localStorage.getItem('mode');
+
+	if (mode === 'light') {
+		setDarkMode();
+	} else if (mode === 'dark') {
+		setLightMode();
+	}
+}
+
+function setDarkMode() {
+	localStorage.setItem('mode', 'dark');
+	body.classList.add('body-dark-mode');
+	title.classList.add('title-dark-mode');
+	modeSwitcher.classList.add('mode-switcher-dark-mode');
+	gameEnd.style.color = '#fff';
+	modeSwitcher.innerHTML = 'light mode';
+}
+
+function setLightMode() {
+	localStorage.setItem('mode', 'light');
+	body.classList.remove('body-dark-mode');
+	title.classList.remove('title-dark-mode');
+	modeSwitcher.classList.remove('mode-switcher-dark-mode');
+	gameEnd.style.color = '#000';
+	modeSwitcher.innerHTML = 'dark mode';
 }
