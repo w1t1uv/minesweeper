@@ -25,12 +25,12 @@ const body = document.querySelector('body');
 let width = 10;
 let bombCount = 10;
 let flags = 0;
+let squares = [];
+let isGameOver = false;
 let count = 0;
 let sec = 0;
-let squares = [];
 let timerID;
 let finalTime;
-let isGameOver = false;
 let totalMoves;
 
 const trackingWrapper = document.createElement('div');
@@ -64,9 +64,15 @@ modeSwitcher.classList.add('mode-switcher');
 modeSwitcher.innerHTML = 'dark mode';
 settingsWrapper.append(modeSwitcher);
 
+const soundButton = document.createElement('div');
+soundButton.classList.add('sound-button');
+soundButton.innerHTML = 'sound on';
+settingsWrapper.append(soundButton);
+
 grid.addEventListener('click', startTimer, {once: true});
 grid.addEventListener('click', finishTimer);
 modeSwitcher.addEventListener('click', changeMode);
+soundButton.addEventListener('click', turnOn);
 
 function startTimer() {
 	if (!isGameOver) {
@@ -291,6 +297,13 @@ function winCheck() {
 	}
 
 	if (matches === bombCount) {
+		clearInterval(timerID);
+		finalTime = timer.textContent;
+		grid.removeEventListener('click', moveCounter);
+		totalMoves = count;
+
+		gameEnd.innerHTML = `Hooray! You found all mines in ${finalTime} seconds and ${totalMoves} moves!`;
+		gameEnd.style.opacity = '1';
 		isGameOver = true;
 		isWin = true;
 	}
@@ -334,4 +347,51 @@ function setLightMode() {
 	modeSwitcher.classList.remove('mode-switcher-dark-mode');
 	gameEnd.style.color = '#000';
 	modeSwitcher.innerHTML = 'dark mode';
+}
+
+let stepSound = new Audio('sounds/step.wav');
+let flagSound = new Audio('sounds/flag.wav');
+let gameOverSound = new Audio('sounds/over.wav');
+let gameWinSound = new Audio('sounds/win.wav');
+let sound = 'off';
+
+stepSound.volume = 1;
+flagSound.volume = 1;
+gameOverSound.volume = 1;
+gameWinSound.volume = 1;
+
+function turnOn() {
+	if (soundButton.textContent === 'sound on') {
+		soundButton.innerHTML = 'sound off';
+		soundButton.style.backgroundColor = '#5e6a57';
+	} else if (soundButton.textContent === 'sound off') {
+		soundButton.innerHTML = 'sound on';
+		soundButton.style.backgroundColor = '#8e9689';
+	}
+
+	if (sound === 'off') {
+		sound = 'on';
+		grid.addEventListener('click', function (event) {
+			let target = event.target;
+
+			if (target.classList.contains('valid') && !target.classList.contains('checked')) {
+				stepSound.play();
+			}
+			if (target.classList.contains('bomb')) {
+				gameOverSound.play();
+			}
+		}, true);
+		grid.addEventListener('contextmenu', function (event) {
+			let target = event.target;
+
+			if (!target.classList.contains('checked') && (flags < bombCount) && !target.classList.contains('flag')) {
+				flagSound.play();
+			}
+		}, true);
+		if (isWin) {
+			gameWinSound.play();
+		}
+	} else if (sound === 'on') {
+		sound = 'off';
+	}
 }
